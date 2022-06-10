@@ -1,10 +1,8 @@
-# Getting Started with Create React App
+# React App to find Github User
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## GIF of functionality:
 
-## Available Scripts
-
-In the project directory, you can run:
+!["main"](https://github.com/PolinaSkrobot/github-finder/blob/main/public/video.gif)
 
 ### `npm start`
 
