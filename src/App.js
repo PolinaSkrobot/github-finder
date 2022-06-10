@@ -14,7 +14,8 @@ class App extends Component {
     users: [],
     user: {},
     loading: false,
-    alert: null
+    alert: null,
+    repos: []
   }
   // async componentDidMount() {
   //   console.log(process.env.REACT_APP_GITHUB_CLIENT_ID);
@@ -27,23 +28,36 @@ class App extends Component {
     const resa = await axios.get(`https://api.github.com/search/users?q=${inputValue}&client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
     this.setState({loading:false, users: resa.data.items});
   }
+
   getUser = async (userName) => {
       this.setState({loading:true});
       const resa = await axios.get(`https://api.github.com/users/${userName}?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
       this.setState({loading:false, user: resa.data});
    
   }
+
+  getUserRepos = async userName => {
+    this.setState({loading:true});
+    const resa = await axios.get(
+      `https://api.github.com/users/${userName}/repos?per_page=5&sort=created:asc
+      &client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`);
+    this.setState({loading:false, repos: resa.data});
+  }
+
   clearUsers = () => {
     this.setState({users: [], loading: false})
   }
+
   setAlert = (msg, type) => {
     this.setState({alert: {msg, type}});
     setTimeout(()=>{
       this.setState({alert: null})
     }, 3000)
   }
+
   render() {
-    const { users, user, loading} = this.state
+    const { users, user, loading, repos} = this.state
     return (
       <Router>
       <div className='App'>
@@ -62,7 +76,13 @@ class App extends Component {
 
             } />
             <Route exact path='/about' element={<About></About>} />     
-            <Route exact path='/user/:login' element={<User getUser={this.getUser} user={user} loading={loading}></User>} />          
+            <Route exact path='/user/:login' element={<User 
+                                                  getUser={this.getUser} 
+                                                  user={user} 
+                                                  getUserRepos={this.getUserRepos}
+                                                  repos={repos}
+                                                  loading={loading}
+                                                  ></User>} />          
           </Routes>
         </div>
       </div>

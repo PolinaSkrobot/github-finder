@@ -1,12 +1,14 @@
 import React, { useEffect, Fragment } from "react";
 import Spinner from "../layout/Spinner";
+import Repos from "../repos/Repos";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
-const User = ({ getUser, loading, user }) => {
+const User = ({ getUser, getUserRepos, repos, loading, user }) => {
   const { login } = useParams();
   useEffect(() => {
     getUser(login);
+    getUserRepos(login)
   }, []);
 
   const {
@@ -77,6 +79,7 @@ const User = ({ getUser, loading, user }) => {
         <badge className="badge badge-light">Public Repos: {public_repos}</badge>
         <badge className="badge badge-dark">Public Gists: {public_gists}</badge>
       </div>
+      <Repos repos={repos}></Repos>
     </Fragment>
   );
 };
@@ -84,5 +87,7 @@ User.propTypes = {
   loading: PropTypes.bool,
   user: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
+  getUserRepos: PropTypes.func.isRequired,
+  repos: PropTypes.array.isRequired
 };
 export default User;
