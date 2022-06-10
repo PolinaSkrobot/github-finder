@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 export class Search extends Component {
   state = {
@@ -9,31 +9,30 @@ export class Search extends Component {
     searchUsers: PropTypes.func.isRequired,
     clearUsers: PropTypes.func.isRequired,
     showClear: PropTypes.bool.isRequired,
-    setAlert: PropTypes.func.isRequired
-  }
+    setAlert: PropTypes.func.isRequired,
+  };
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value }); // = this.setState({ text: e.target.value})
- 
   };
   //<form lassName='form' onSubmit={this.onSubmit.bind(this)}></form>
   //onSubmit(e) {
-   // e.preventDefault();
+  // e.preventDefault();
   //  console.log(this.state.text);
- // }
+  // }
   onSubmit = (e) => {
     e.preventDefault();
-    if(this.state.text=== '') {
-      this.props.setAlert('Please, enter something', 'light')
+    if (this.state.text === "") {
+      this.props.setAlert("Please, enter something", "light");
     } else {
       this.props.searchUsers(this.state.text);
-      this.setState({text:''})
+      this.setState({ text: "" });
     }
-  }
+  };
   render() {
-    const { showClear, clearUsers } = this.props
+    const { showClear, clearUsers } = this.props;
     return (
       <div>
-        <form className='form' onSubmit={this.onSubmit}> 
+        <form className='form' onSubmit={this.onSubmit}>
           <input
             type='text'
             name='text'
@@ -48,7 +47,9 @@ export class Search extends Component {
           ></input>
         </form>
         {showClear && (
-        <button className="btn btn-light btn-block" onClick={clearUsers}>Clear</button>
+          <button className='btn btn-light btn-block' onClick={clearUsers}>
+            Clear
+          </button>
         )}
       </div>
     );

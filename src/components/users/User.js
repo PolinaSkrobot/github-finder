@@ -8,7 +8,7 @@ const User = ({ getUser, getUserRepos, repos, loading, user }) => {
   const { login } = useParams();
   useEffect(() => {
     getUser(login);
-    getUserRepos(login)
+    getUserRepos(login);
   }, []);
 
   const {
@@ -41,43 +41,58 @@ const User = ({ getUser, getUserRepos, repos, loading, user }) => {
         <i className='fas fa-times-circle text-danger' />
       )}
       <div className='card grid-2'>
-        <div className="all-center">
-          <img src={avatar_url} className="round-img" alt="" style={{width: '150px'}}/>
+        <div className='all-center'>
+          <img
+            src={avatar_url}
+            className='round-img'
+            alt=''
+            style={{ width: "150px" }}
+          />
           <h1>{name}</h1>
           <p>Location: {location}</p>
         </div>
         <div>
-          {bio && <Fragment>
-            <h3>Bio</h3>
-            <p>{bio}</p>
-            </Fragment>}
-            <a href={html_url} className='btn btn-dark my-1'>
-              Visit Github Profile
-            </a>
-            <ul>
-              <li>
-                {login && <Fragment>
+          {bio && (
+            <Fragment>
+              <h3>Bio</h3>
+              <p>{bio}</p>
+            </Fragment>
+          )}
+          <a href={html_url} className='btn btn-dark my-1'>
+            Visit Github Profile
+          </a>
+          <ul>
+            <li>
+              {login && (
+                <Fragment>
                   <strong>Username: </strong> {login}
-                  </Fragment>}
-              </li>
-              <li>
-                {company && <Fragment>
+                </Fragment>
+              )}
+            </li>
+            <li>
+              {company && (
+                <Fragment>
                   <strong>Company: </strong> {company}
-                  </Fragment>}
-              </li>
-              <li>
-                {blog && <Fragment>
+                </Fragment>
+              )}
+            </li>
+            <li>
+              {blog && (
+                <Fragment>
                   <strong>Website: </strong> {blog}
-                  </Fragment>}
-              </li>
-            </ul>
+                </Fragment>
+              )}
+            </li>
+          </ul>
         </div>
       </div>
-      <div className="card text-center">
-        <badge className="badge badge-primary">Followers: {followers}</badge>
-        <badge className="badge badge-success">Following: {following}</badge>
-        <badge className="badge badge-light">Public Repos: {public_repos}</badge>
-        <badge className="badge badge-dark">Public Gists: {public_gists}</badge>
+      <div className='card text-center'>
+        <badge className='badge badge-primary'>Followers: {followers}</badge>
+        <badge className='badge badge-success'>Following: {following}</badge>
+        <badge className='badge badge-light'>
+          Public Repos: {public_repos}
+        </badge>
+        <badge className='badge badge-dark'>Public Gists: {public_gists}</badge>
       </div>
       <Repos repos={repos}></Repos>
     </Fragment>
@@ -88,6 +103,6 @@ User.propTypes = {
   user: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
   getUserRepos: PropTypes.func.isRequired,
-  repos: PropTypes.array.isRequired
+  repos: PropTypes.array.isRequired,
 };
 export default User;
