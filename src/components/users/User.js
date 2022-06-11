@@ -4,11 +4,13 @@ import Repos from "../repos/Repos";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+
 const User = ({ getUser, getUserRepos, repos, loading, user }) => {
   const { login } = useParams();
   useEffect(() => {
     getUser(login);
     getUserRepos(login);
+    //eslint-disable-next-line
   }, []);
 
   const {
